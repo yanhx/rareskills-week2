@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@openzeppelin/merkle-tree": "^1.0.5"
+  },
+  "type": "module"
+}

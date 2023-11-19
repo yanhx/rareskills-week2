@@ -2,6 +2,10 @@
 cache/
 out/
 
+node_modules/
+
+
+
 # Ignores development broadcast logs
 !/broadcast
 /broadcast/*/31337/
@@ -12,3 +16,8 @@ docs/
 
 # Dotenv file
 .env
+
+lib/
+broadcast/
+lib/forge-std/
+lib/openzeppelin-contracts/
