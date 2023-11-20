@@ -25,17 +25,30 @@ contract PrimeCounter {
         return primeCount;
     }
 
-    function _isPrime(uint256 n) private pure returns (bool) {
-        if (n < 2) return false;
-        if (n == 2) return true;
-        if (n % 2 == 0) return false;
-
-        for (uint256 i = 3; i * i <= n;) {
-            if (n % i == 0) return false;
-            unchecked {
-                i += 2;
+    /**
+     * @dev Returns true if the given number is a prime number. This primality test makes use of the fact that
+     * it's sufficient to test whether the number is divisible by 2 or 3, and then to only check through all numbers of
+     * the form 6k ± 1 up to the square root of the given number.
+     * Further reading: https://en.wikipedia.org/wiki/Primality_test
+     * @param _number The number to be checked for primality.
+     * @return A boolean indicating whether the given number is prime or not.
+     */
+    function _isPrime(uint256 _number) private pure returns (bool) {
+        if (_number <= 3) {
+            return _number > 1;
+        } else if (_number % 2 == 0) {
+            return false;
+        } else if (_number % 3 == 0) {
+            return false;
+        } else {
+            for (uint256 i = 5; i * i <= _number; i = i + 6) {
+                if (_number % i == 0) {
+                    return false;
+                } else if (_number % (i + 2) == 0) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
     }
 }

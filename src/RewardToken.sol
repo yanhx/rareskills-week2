@@ -8,14 +8,14 @@ import {Ownable2Step, Ownable} from "@openzeppelin/contracts/access/Ownable2Step
 contract RewardToken is ERC20, Ownable2Step {
     address private immutable stakingContract;
 
-    constructor(address _stakingContract) ERC20("RewardToken", "RT") Ownable(msg.sender) {
-        require(_stakingContract != address(0), "Zero address");
-        stakingContract = _stakingContract;
-    }
-
     modifier OnlyStakingContract() {
         require(msg.sender == stakingContract, "invaild staking contract");
         _;
+    }
+
+    constructor(address _stakingContract) ERC20("RewardToken", "RT") Ownable(msg.sender) {
+        require(_stakingContract != address(0), "Zero address");
+        stakingContract = _stakingContract;
     }
 
     function mint(address account, uint256 amount) external onlyOwner {
