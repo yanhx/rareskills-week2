@@ -18,3 +18,14 @@
 - [ ]  **CTFs**
     - [ ]  Solve solidity riddles Overmint1 ([link](https://github.com/RareSkills/solidity-riddles))
     - [ ]  Solve solidity riddles Overmint2 ([link](https://github.com/RareSkills/solidity-riddles))
+
+
+# Coverage
+| File                                     | % Lines          | % Statements     | % Branches      | % Funcs        |
+|------------------------------------------|------------------|------------------|-----------------|----------------|
+| src/EnumNFT.sol                          | 75.00% (3/4)     | 42.86% (3/7)     | 50.00% (2/4)    | 50.00% (1/2)   |
+| src/MyNFT.sol                            | 100.00% (16/16)  | 100.00% (21/21)  | 100.00% (12/12) | 100.00% (5/5)  |
+| src/PrimeCounter.sol                     | 80.00% (16/20)   | 77.42% (24/31)   | 66.67% (8/12)   | 100.00% (2/2)  |
+| src/RewardToken.sol                      | 66.67% (2/3)     | 66.67% (2/3)     | 100.00% (0/0)   | 66.67% (2/3)   |
+| src/StakingContract.sol                  | 86.67% (26/30)   | 82.86% (29/35)   | 70.00% (7/10)   | 85.71% (6/7)   |
+| Total                                    | 90.00% (108/120) | 86.79% (138/159) | 70.83% (34/48)  | 85.71% (30/35) |

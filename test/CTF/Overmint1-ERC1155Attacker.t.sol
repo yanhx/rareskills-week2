@@ -37,7 +37,7 @@ contract AttackerContract3 is IERC1155Receiver {
         Overmint1_ERC1155(victimsAddress).mint(0, "");
     }
 
-    function onERC1155Received(address operator, address from, uint256 id, uint256 value, bytes calldata data)
+    function onERC1155Received(address, address, uint256 id, uint256, bytes calldata)
         external
         override
         returns (bytes4)
@@ -51,13 +51,11 @@ contract AttackerContract3 is IERC1155Receiver {
         return IERC1155Receiver.onERC1155Received.selector;
     }
 
-    function onERC1155BatchReceived(
-        address operator,
-        address from,
-        uint256[] calldata ids,
-        uint256[] calldata values,
-        bytes calldata data
-    ) external override returns (bytes4) {
+    function onERC1155BatchReceived(address, address, uint256[] calldata, uint256[] calldata, bytes calldata)
+        external
+        override
+        returns (bytes4)
+    {
         return IERC1155Receiver.onERC1155BatchReceived.selector;
     }
 

