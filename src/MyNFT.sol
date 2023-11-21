@@ -8,14 +8,24 @@ import {Ownable2Step, Ownable} from "@openzeppelin/contracts/access/Ownable2Step
 import {BitMaps} from "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
+/**
+ * @title MyNFT
+ * @author Ryan
+ * @notice an ERC721 NFT,  a reward rate of 2.5% for any NFT in the collection. Addresses in a merkle tree can mint NFTs at a discount.
+ *
+ */
 contract MyNFT is ERC721, ERC2981, Ownable2Step {
-    uint256 public constant MAX_SUPPLY = 20;
+    uint256 public constant MAX_SUPPLY = 1000;
     uint256 public constant PRICE = 0.01 ether;
     uint256 public constant DISCOUNTED_PRICE = 0.005 ether;
     uint96 public constant ROYALTY = 250; // basis points
+
+    //Merkle tree root for discount address list
     bytes32 public immutable i_merkleRoot;
+
     uint256 public totalSupply;
 
+    //bitmap stores discount usage info, false -> unused , true -> used
     BitMaps.BitMap private discountList;
 
     constructor(bytes32 _merkleRoot) ERC721("MyNFT", "MYNFT") Ownable(msg.sender) {
@@ -23,6 +33,9 @@ contract MyNFT is ERC721, ERC2981, Ownable2Step {
         i_merkleRoot = _merkleRoot;
     }
 
+    /**
+     * NTF is minted from Id 0 to larger Id continously
+     */
     function mint() public payable {
         require(msg.value >= PRICE, "Incorrect price");
         require(totalSupply < MAX_SUPPLY, "All tokens minted");
@@ -31,6 +44,11 @@ contract MyNFT is ERC721, ERC2981, Ownable2Step {
         totalSupply++;
     }
 
+    /**
+     * Mint NFT with discounted price, one chance per address in discount list merkle tree
+     * @param proof merkle proof path
+     * @param index address index in merkle tree
+     */
     function mintWithDiscount(bytes32[] calldata proof, uint256 index) external payable {
         require(totalSupply < MAX_SUPPLY, "All tokens minted");
         require(!BitMaps.get(discountList, index), "Discount already used");
@@ -46,6 +64,9 @@ contract MyNFT is ERC721, ERC2981, Ownable2Step {
         totalSupply++;
     }
 
+    /**
+     * Withdraw all fund received from NFT minting
+     */
     function widthDrawBalance() external onlyOwner {
         payable(owner()).transfer(address(this).balance);
     }

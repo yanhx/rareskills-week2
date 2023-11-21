@@ -4,7 +4,19 @@ pragma solidity 0.8.20;
 
 import {ERC721, ERC721Enumerable} from "@openzeppelin/contracts//token/ERC721/extensions/ERC721Enumerable.sol";
 
+/**
+ * @title PrimeCounter
+ * @author Ryan
+ * @notice to count prime number token Id holden by certain NFT holder
+ */
 contract PrimeCounter {
+    /**
+     * accepts an address and returns how many NFTs are owned by that address which have tokenIDs that are prime numbers.
+     * For example, if an address owns tokenIds 10, 11, 12, 13, it should return 2.
+     * In a real blockchain game, these would refer to special items, but we only care about the abstract functionality for this exercise.
+     * @param holder holder address to check
+     * @param nftAddress NFT contract address
+     */
     function countPrimes(address holder, address nftAddress) public view returns (uint256) {
         // get token count for holder
         uint256 count = ERC721Enumerable(nftAddress).balanceOf(holder);
